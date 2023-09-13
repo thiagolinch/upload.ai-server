@@ -13,14 +13,12 @@ export async function createTranscriptionRoute(app: FastifyInstance) {
         })
 
         const { videoId } = paramsSchema.parse(req.params)
-        console.log(videoId)
 
         const bodySchema = z.object({
             prompt: z.string()
         })
 
         const { prompt } = bodySchema.parse(req.body)
-        console.log(prompt)
 
         const video = await prisma.video.findUniqueOrThrow({
             where: {
@@ -29,10 +27,8 @@ export async function createTranscriptionRoute(app: FastifyInstance) {
         })
 
         const videoPath = video.path
-        console.log(videoPath)
 
         const audioReadStream = createReadStream(videoPath)
-        console.log(audioReadStream)
 
         const response = await openai.audio.transcriptions.create({
             file: audioReadStream,
@@ -44,7 +40,6 @@ export async function createTranscriptionRoute(app: FastifyInstance) {
         })
 
         const transcription = response.text
-        console.log(transcription)
 
         await prisma.video.update({
             where: {
