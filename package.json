@@ -18,8 +18,8 @@
   },
   "dependencies": {
     "@fastify/cors": "^8.4.0",
-    "@fastify/multipart": "^7.7.3",
-    "@prisma/client": "5.2.0",
+    "@fastify/multipart": "^8.0.0",
+    "@prisma/client": "5.3.1",
     "fastify": "^4.23.2",
     "openai": "^4.11.0",
     "zod": "^3.22.2"

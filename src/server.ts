@@ -19,7 +19,7 @@ app.register(createTranscriptionRoute)
 app.register(generateAiCompletionRoute)
 
 app.listen({
-    port: 5432,
+    port: 8080,
 }).then(() => {
     console.log("HTTP server running")
 })
