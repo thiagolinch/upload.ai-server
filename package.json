@@ -1,5 +1,5 @@
 {
-  "name": "uploadAi-server",
+  "name": "uploadai-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -21,6 +21,7 @@
     "@fastify/multipart": "^8.0.0",
     "@prisma/client": "5.3.1",
     "fastify": "^4.23.2",
+    "node": "^20.7.0",
     "openai": "^4.11.0",
     "zod": "^3.22.2"
   }
