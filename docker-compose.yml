@@ -20,7 +20,7 @@ services:
     ports:
       - 3333:3333
     volumes:
-      - .:/path/usr/app
+      - .:/usr/app
     links:
       - database_ptag
     depends_on:
