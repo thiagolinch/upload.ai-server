@@ -4,12 +4,12 @@ WORKDIR /usr/app/ptag
 
 COPY package.json .
 
-RUN npm install 
-
-RUN npm prisma generate
+RUN npm install
 
 COPY . .
 
-EXPOSE 3333
+EXPOSE 5432
+
+CMD ["npm", "prisma", "generate"]
 
 CMD ["npm", "run", "dev"]
