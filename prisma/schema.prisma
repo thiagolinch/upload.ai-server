@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgres"
-  url      = env("DATABASE_URL")
+  url      = "postgres://root:b4LdQ2Tw79B3UQUDRvGBfBVdWhy5WDD2@dpg-cke2d5kgonuc739fq3j0-a/dbupload"
 }
 
 model Video {
