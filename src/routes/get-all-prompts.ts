@@ -7,4 +7,4 @@ export async function getAllPromtpsRoute(app: FastifyInstance) {
     
         return prompts
     })
-} 
+}

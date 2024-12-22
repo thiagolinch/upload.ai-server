@@ -1,13 +1,10 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgres"
-  url      = "postgres://root:b4LdQ2Tw79B3UQUDRvGBfBVdWhy5WDD2@dpg-cke2d5kgonuc739fq3j0-a/dbupload"
+  url      = env("DATABASE_URL")
 }
 
 model Video {
