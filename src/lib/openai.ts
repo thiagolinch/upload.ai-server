@@ -1,7 +1,17 @@
 import 'dotenv/config'
-import { OpenAI } from  "openai"
+import { env } from 'node:process'
+
+import OpenAI from "openai";
 
 export const openai = new OpenAI({
-    apiKey: "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",
+  apiKey: env.API_KEY_OPENAI,
+});
 
-})
+const completion = openai.chat.completions.create({
+  model: "gpt-4o-mini",
+  messages: [
+    {"role": "user", "content": "write a haiku about ai"},
+  ],
+});
+
+completion.then((result) => console.log(result.choices[0].message));
