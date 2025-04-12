@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "clean": "rm -rf dist",
+    "build": "pnpm clean && tsc",
     "dev": "tsx watch src/server.ts",
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node prisma/seed.ts",
+    "start": "node dist/src/server.js"
   },
   "keywords": [],
   "author": "",
