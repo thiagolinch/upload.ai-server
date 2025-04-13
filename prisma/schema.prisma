@@ -44,3 +44,71 @@ model trips {
   links        links[]
   participants participants[]
 }
+
+model Prompt {
+  id       String @id
+  title    String
+  template String
+}
+
+model Video {
+  id            String   @id
+  name          String
+  path          String
+  transcription String?
+  createdAt     DateTime @default(now())
+}
+
+model accounts {
+  id                                                    String         @id(map: "PK_5a7a02c20412299d198e097a8fe") @db.Uuid
+  balance                                               String         @db.VarChar
+  transactions_transactions_creditedAccountIdToaccounts transactions[] @relation("transactions_creditedAccountIdToaccounts")
+  transactions_transactions_debitedAccountIdToaccounts  transactions[] @relation("transactions_debitedAccountIdToaccounts")
+  users                                                 users[]
+}
+
+model migrations {
+  id        Int    @id(map: "PK_8c82d7f526340ab734260ea46be") @default(autoincrement())
+  timestamp BigInt
+  name      String @db.VarChar
+}
+
+model transactions {
+  id                                                String   @id(map: "PK_a219afd8dd77ed80f5a862f1db9") @db.Uuid
+  debitedAccountId                                  String   @db.Uuid
+  creditedAccountId                                 String   @db.Uuid
+  value                                             Float
+  createdAt                                         DateTime @default(now()) @db.Timestamp(6)
+  accounts_transactions_creditedAccountIdToaccounts accounts @relation("transactions_creditedAccountIdToaccounts", fields: [creditedAccountId], references: [id], onDelete: SetNull, onUpdate: SetNull, map: "FKCreditedAccount")
+  accounts_transactions_debitedAccountIdToaccounts  accounts @relation("transactions_debitedAccountIdToaccounts", fields: [debitedAccountId], references: [id], onDelete: SetNull, onUpdate: SetNull, map: "FKDebitedAccount")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model typeorm_metadata {
+  type     String  @db.VarChar
+  database String? @db.VarChar
+  schema   String? @db.VarChar
+  table    String? @db.VarChar
+  name     String? @db.VarChar
+  value    String?
+
+  @@ignore
+}
+
+model users {
+  id           String         @id(map: "PK_a3ffb1c0c8416b9fc6f907b7433") @db.Uuid
+  username     String         @db.VarChar
+  password     String         @db.VarChar
+  account_id   String         @db.Uuid
+  accounts     accounts       @relation(fields: [account_id], references: [id], onDelete: SetNull, onUpdate: SetNull, map: "FKAccountID")
+  users_tokens users_tokens[]
+}
+
+model users_tokens {
+  id            String   @id(map: "PK_9f236389174a6ccbd746f53dca8") @db.Uuid
+  refresh_token String   @db.VarChar
+  user_id       String   @db.Uuid
+  expires_date  DateTime @db.Timestamp(6)
+  created_at    DateTime @default(now()) @db.Timestamp(6)
+  users         users    @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "FK_User_Token")
+}
