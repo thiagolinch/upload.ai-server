@@ -21,21 +21,3 @@ model Video {
   transcription String?
   createdAt     DateTime @default(now())
 }
-
-model users {
-  id           String         @id(map: "PK_a3ffb1c0c8416b9fc6f907b7433") @db.Uuid
-  username     String         @db.VarChar
-  password     String         @db.VarChar
-  account_id   String         @db.Uuid
-  accounts     accounts       @relation(fields: [account_id], references: [id], onDelete: SetNull, onUpdate: SetNull, map: "FKAccountID")
-  users_tokens users_tokens[]
-}
-
-model users_tokens {
-  id            String   @id(map: "PK_9f236389174a6ccbd746f53dca8") @db.Uuid
-  refresh_token String   @db.VarChar
-  user_id       String   @db.Uuid
-  expires_date  DateTime @db.Timestamp(6)
-  created_at    DateTime @default(now()) @db.Timestamp(6)
-  users         users    @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "FK_User_Token")
-}
