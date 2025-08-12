@@ -6,6 +6,7 @@ async function main() {
 
   await prisma.prompt.create({
     data: {
+      id: '1',
       title: 'Título YouTube',
       template: `Your role is to generate three titles for a YouTube video.
 
@@ -31,6 +32,7 @@ Transcription:
 
   await prisma.prompt.create({
     data: {
+      id: '2',
       title: 'Descrição YouTube',
       template: `Your role is to generate a succinct description for a YouTube video.
 
