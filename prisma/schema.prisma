@@ -5,44 +5,7 @@ generator client {
 datasource db {
   provider = "postgres"
   url      = env("DATABASE_URL")
-}
-
-model activities {
-  id        String   @id
-  title     String
-  occurs_at DateTime
-  trip_id   String
-  trips     trips    @relation(fields: [trip_id], references: [id])
-}
-
-model links {
-  id      String @id
-  title   String
-  url     String
-  trip_id String
-  trips   trips  @relation(fields: [trip_id], references: [id])
-}
-
-model participants {
-  id           String  @id
-  name         String?
-  email        String
-  is_confirmed Boolean @default(false)
-  is_owner     Boolean @default(false)
-  trip_id      String
-  trips        trips   @relation(fields: [trip_id], references: [id])
-}
-
-model trips {
-  id           String         @id
-  destination  String
-  starts_at    DateTime
-  ends_at      DateTime
-  is_confirmed Boolean        @default(false)
-  created_at   DateTime       @default(now())
-  activities   activities[]
-  links        links[]
-  participants participants[]
+  directUrl = env("DIRECT_URL")
 }
 
 model Prompt {
@@ -57,42 +20,6 @@ model Video {
   path          String
   transcription String?
   createdAt     DateTime @default(now())
-}
-
-model accounts {
-  id                                                    String         @id(map: "PK_5a7a02c20412299d198e097a8fe") @db.Uuid
-  balance                                               String         @db.VarChar
-  transactions_transactions_creditedAccountIdToaccounts transactions[] @relation("transactions_creditedAccountIdToaccounts")
-  transactions_transactions_debitedAccountIdToaccounts  transactions[] @relation("transactions_debitedAccountIdToaccounts")
-  users                                                 users[]
-}
-
-model migrations {
-  id        Int    @id(map: "PK_8c82d7f526340ab734260ea46be") @default(autoincrement())
-  timestamp BigInt
-  name      String @db.VarChar
-}
-
-model transactions {
-  id                                                String   @id(map: "PK_a219afd8dd77ed80f5a862f1db9") @db.Uuid
-  debitedAccountId                                  String   @db.Uuid
-  creditedAccountId                                 String   @db.Uuid
-  value                                             Float
-  createdAt                                         DateTime @default(now()) @db.Timestamp(6)
-  accounts_transactions_creditedAccountIdToaccounts accounts @relation("transactions_creditedAccountIdToaccounts", fields: [creditedAccountId], references: [id], onDelete: SetNull, onUpdate: SetNull, map: "FKCreditedAccount")
-  accounts_transactions_debitedAccountIdToaccounts  accounts @relation("transactions_debitedAccountIdToaccounts", fields: [debitedAccountId], references: [id], onDelete: SetNull, onUpdate: SetNull, map: "FKDebitedAccount")
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model typeorm_metadata {
-  type     String  @db.VarChar
-  database String? @db.VarChar
-  schema   String? @db.VarChar
-  table    String? @db.VarChar
-  name     String? @db.VarChar
-  value    String?
-
-  @@ignore
 }
 
 model users {
